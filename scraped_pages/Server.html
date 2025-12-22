@@ -1,0 +1,443 @@
+<div class="mw-content-ltr mw-parser-output" dir="ltr" lang="en"><p>A Terraria <b>server</b> provides a platform for players to connect over the internet or other network for <a href="/wiki/Multiplayer" title="Multiplayer">multiplayer</a> games. Windows installations of Terraria include its server software. For running on a Linux distribution, you must download the server files. See the Downloads section.
+</p><p>A server can also be used for standalone single-player gameplay. This offers the ability to adjust the in-game <a class="mw-redirect" href="/wiki/Time" title="Time">time</a> at will.
+</p>
+<div aria-labelledby="mw-toc-heading" class="toc" id="toc" role="navigation"><input aria-label="show" class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/><div class="toctitle" dir="ltr" lang="en"><h2 id="mw-toc-heading"><svg class="wds-icon wds-icon-tiny"><use href="#wds-icons-bullet-list-tiny"></use></svg>Contents</h2><span class="toctogglespan"><label aria-label="show" class="toctogglelabel" for="toctogglecheckbox"></label></span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Before_You_Host"><span class="tocnumber">1</span> <span class="toctext">Before You Host</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Public_servers"><span class="tocnumber">2</span> <span class="toctext">Public servers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Joining_Servers"><span class="tocnumber">2.1</span> <span class="toctext">Joining Servers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#How_to_(Windows)"><span class="tocnumber">3</span> <span class="toctext">How to (Windows)</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#How_to_(Linux)"><span class="tocnumber">4</span> <span class="toctext">How to (Linux)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Prerequisites"><span class="tocnumber">4.1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Starting_the_server"><span class="tocnumber">4.2</span> <span class="toctext">Starting the server</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Launching_in_the_background"><span class="tocnumber">4.3</span> <span class="toctext">Launching in the background</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Notes"><span class="tocnumber">4.4</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Run_as_SystemD_service"><span class="tocnumber">4.5</span> <span class="toctext">Run as SystemD service</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Additional"><span class="tocnumber">4.5.1</span> <span class="toctext">Additional</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Take_cake_about_the_environment"><span class="tocnumber">4.5.2</span> <span class="toctext">Take cake about the environment</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Make_it_symbolic"><span class="tocnumber">4.5.3</span> <span class="toctext">Make it symbolic</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#How_to_(RPI_/_Others_OSes)"><span class="tocnumber">5</span> <span class="toctext">How to (RPI / Others OSes)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Prerequisites_2"><span class="tocnumber">5.1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Launching_the_server"><span class="tocnumber">5.2</span> <span class="toctext">Launching the server</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Troubleshooting"><span class="tocnumber">5.3</span> <span class="toctext">Troubleshooting</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Downloads"><span class="tocnumber">6</span> <span class="toctext">Downloads</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Server_files"><span class="tocnumber">7</span> <span class="toctext">Server files</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#List_of_console_commands"><span class="tocnumber">8</span> <span class="toctext">List of console commands</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Command_line_parameters"><span class="tocnumber">9</span> <span class="toctext">Command line parameters</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Server_config_file"><span class="tocnumber">10</span> <span class="toctext">Server config file</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="#Banning_and_un-banning"><span class="tocnumber">11</span> <span class="toctext">Banning and un-banning</span></a></li>
+<li class="toclevel-1 tocsection-24"><a href="#System_requirements"><span class="tocnumber">12</span> <span class="toctext">System requirements</span></a></li>
+<li class="toclevel-1 tocsection-25"><a href="#Notes_2"><span class="tocnumber">13</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-26"><a href="#LAN"><span class="tocnumber">14</span> <span class="toctext">LAN</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#History"><span class="tocnumber">15</span> <span class="toctext">History</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Before_You_Host">Before You Host</span></h2>
+<p>The server runs on TCP port 7777 by default. If you are behind NAT (e.g. residential user), the port used must be <a class="external text" href="https://portforward.com/" rel="nofollow noreferrer noopener" target="_blank">port-forwarded</a> in order for other players be able to join. If one can't forward a port, one may choose to use a VPN service like <a class="external text" href="https://secure.logmein.com/products/hamachi/download.aspx" rel="nofollow noreferrer noopener" target="_blank">Hamachi</a> or <a class="external text" href="https://www.radmin-vpn.com/" rel="nofollow noreferrer noopener" target="_blank">Radmin VPN</a> instead (although in those cases, every player needs to install the VPN software). The default max players is 8 (16 as of <a href="/wiki/1.4.0.1" title="1.4.0.1">1.4.0.1</a>), but this can be changed during server start-up, as well as within the server configuration file (serverconfig.txt). Non-NAT connections(e.g. business or data center user) typically do not need port forwarding, but may need to allow the port through a firewall.
+</p><p>If running on a cloud service provider such as AWS or GCP, ensure port 7777 on TCP and UDP is open to allow connections to the server.
+</p>
+<h2><span class="mw-headline" id="Public_servers">Public servers</span></h2>
+<p>Servers can be found via these server lists:
+</p>
+<ul><li><a class="external text" href="https://forums.terraria.org/index.php?forums/dedicated-servers.195/" rel="nofollow noreferrer noopener" target="_blank">Server forum at Official Terraria Forum</a></li>
+<li><a class="external free" href="https://www.tserverweb.com" rel="nofollow noreferrer noopener" target="_blank">https://www.tserverweb.com</a></li>
+<li><a class="external free" href="https://topg.org/terraria-servers/" rel="nofollow noreferrer noopener" target="_blank">https://topg.org/terraria-servers/</a></li>
+<li><a class="external free" href="http://terraria-servers.com" rel="nofollow noreferrer noopener" target="_blank">http://terraria-servers.com</a></li>
+<li><a class="external free" href="https://terraria.21yunbox.com" rel="nofollow noreferrer noopener" target="_blank">https://terraria.21yunbox.com</a></li></ul>
+<h3><span class="mw-headline" id="Joining_Servers">Joining Servers</span></h3>
+<p>A server can be joined by selecting the Multiplayer option on the main menu, selecting a character, and then entering the server's IP and port.
+</p><p>Often different servers have different requirements for a player to join. Some servers will require the player to have a <a class="mw-redirect" href="/wiki/Softcore" title="Softcore">Softcore</a> or <a class="mw-redirect" href="/wiki/Mediumcore" title="Mediumcore">Mediumcore</a> player to play, and some may require that players be at a certain level of the game before joining. Often a public server will have a /register and /login system where the player must have a character with both a unique name and password.
+</p><p>Public servers also usually are run by a group of Administrators and/or Moderators who enforce or regulate rules. Often these rules will disallow mods and hacks, impersonation, and the like. Some servers may also have the capability to allow a player to play online with their singleplayer character without losing their singleplayer inventory.
+</p><p>A list of servers you have recently played will be saved under "Join via IP" in Multiplayer.
+</p>
+<h2><span id="How_to_.28Windows.29"></span><span class="mw-headline" id="How_to_(Windows)">How to (Windows)</span></h2>
+<ul><li>By default, on a 32-bit Windows installation of Terraria, TerrariaServer.exe can be found at: <code>%programfiles%\Steam\steamapps\common\terraria</code></li>
+<li>On a 64-bit Windows installation, it can be found at: <code>%programfiles(x86)%\Steam\steamapps\common\terraria</code></li>
+<li>If you cannot find it in paths above, open steam and right click Terraria in your library, then hit "Properties" &gt; "LOCAL FILES" &gt; "BROWSE LOCAL FILES..." to open the folder.</li>
+<li>If you do not have steam: <code>%programfiles(x86)%\terraria or %programfiles%\terraria</code></li>
+<li>If you use GOG: <code>GOG Games\terraria</code></li></ul>
+<p>A player then may join the server from the game menu by choosing the Multiplayer option.
+</p>
+<h2><span id="How_to_.28Linux.29"></span><span class="mw-headline" id="How_to_(Linux)">How to (Linux)</span></h2>
+<h3><span class="mw-headline" id="Prerequisites">Prerequisites</span></h3>
+<p>First we will install the tools we need to run the server. These are likely preinstalled on your distribution.
+</p><p>For a Debian based system (Ubuntu), run: <code>sudo apt update &amp;&amp; sudo apt install -y wget tmux unzip</code>
+</p>
+<h3><span class="mw-headline" id="Starting_the_server">Starting the server</span></h3>
+<ol><li>See the <a class="mw-selflink-fragment" href="#Downloads">Downloads</a> section to get the link to the latest download. Then download the file: <code>wget <b>the_latest_link_here</b></code></li>
+<li>Unzip the file: <code>unzip terraria-server*</code></li>
+<li>Navigate into the directory you just unzipped. As of 1.4.1.2 the directory is called '1412'. This may change for future versions: <code>cd 1412</code></li>
+<li>Navigate to the Linux directory: <code>cd Linux</code></li>
+<li>Add executable permissions to the server binary: <code>chmod +x TerrariaServer.bin.x86*</code></li>
+<li>Launch the server. The 64 bit version is TerrariaServer.bin.x86_64, the 32 bit version is TerrariaServer.bin.x86: <code>./TerrariaServer.bin.x86_64</code></li>
+<li>Place your world files in the following location for the server to find them: <code>~/.local/share/Terraria/Worlds/</code></li></ol>
+<h3><span class="mw-headline" id="Launching_in_the_background">Launching in the background</span></h3>
+<p>Tmux is a modern version of screen that allows multiple virtual terminal instances. We will use it to launch the server in the background.
+</p>
+<ol><li>Launch the server in a tmux session: <code>tmux</code></li>
+<li>In the tmux session, launch the server: <code>./TerrariaServer.bin.x86_64</code></li>
+<li>Now the server should start up as normal. To detatch from the tmux instance, leaving the server running in the background, use the following key combination: &lt;Ctrl+b&gt; d</li>
+<li>You should now be back at the previous terminal instance. You can see that the tmux session is running in the background with <code>tmux list</code></li>
+<li>To re-attach to the instance to edit or shut it down, just run <code>tmux attach</code></li></ol>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<ul><li>In some cases it is needed to export TERM variable in this way: <code>export TERM=xterm</code></li></ul>
+<h3><span class="mw-headline" id="Run_as_SystemD_service">Run as SystemD service</span></h3>
+<p>Since you can use command line parameters with <code>./TerrariaServer.bin.x86_64</code> you can also run a Terraria server as a systemd service. It can be helpful if you want to run a Terraria server on VDS (DigitalOcean, Lenode &amp; etc.).
+</p><p>Lets assume that you have a VDS with linux distro on it. You also have a non-root user named <code>terraria</code> for example. In terraria's home directory you have unzipped Terraria server. It's <code>1449</code> on the moment of writing.
+</p>
+<ol><li>Create SystemD unit <code>terraria.service</code> <div class="mw-highlight mw-highlight-lang-systemd mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># terraria.service</span>
+<span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Runs a Terraria vanila server</span>
+<span class="na">Documentation</span><span class="o">=</span><span class="s">https://terraria.fandom.com/wiki/Server#Starting_the_server</span>
+<span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target # the service will start only if server has the network connection</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network-online.target # the service will start after the network connection is establish</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">300 # Default value is 90, but Terraria server sometimes starts a bit longed so systemd terminates it by timeout</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/terraria/1449/Linux/TerrariaServer.bin.x86_64 </span>\
+<span class="w">  </span><span class="s">-port 7777 </span>\
+<span class="w">  </span><span class="s">-pass secret_password </span>\
+<span class="w">  </span><span class="s">-players 4 </span>\
+<span class="w">  </span><span class="s">-world /home/terraria/.local/share/Terraria/Worlds/YourVeryPrecious.wld</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target # Allows the service to be enabled for autostart</span>
+</pre></div></li>
+<li>Put SystemD unit to SystemD users directory <code>~/.config/systemd/user</code></li>
+<li>Reload SystemD service to hook up with latest units: <code>systemctl --user daemon-reload</code></li>
+<li>Run the service <code>systemctl --user start terraria.service</code></li>
+<li>Check on the service status <code>systemctl --user status terraria.service</code></li>
+<li>Enable the service for autostart <code>systemctl --user enable terraria.service</code></li></ol>
+<p>Since we running the service with <code>--user</code> flag it binds to user's session. That means it will starts after user logged in and will stops when user logged out. In most cases this behavior is okey, but we do not want to be logged in to server in order to play. So to allow our service to start when system boots up, we need to enable special flag for our user.
+</p><p>We need to relogin as root user and run <code>loginctl enable-linger terraria</code> or <code>sudo loginctl enable-linger terraria</code> if you use user who part of sudories group. After that you can check if changes were applied by running <code>loginctl show-user terraria</code> in the end of output you should see a line <code>Linger=yes</code>. After that you good to go: restart your VDS and that try to connect to it from the game. The service now should start immediately after VDS go online and you should be able to connect to it from the game.
+</p>
+<h4><span class="mw-headline" id="Additional">Additional</span></h4>
+<ul><li>To stop the service run <code>systemctl --user stop terraria.service</code>.</li>
+<li>To remove the service from autostart run <code>systemctl --user disable terraria.service</code>.</li>
+<li>To disable linger flag for <code>terraria</code> user run <code>loginctl disable-linger terraria</code>.</li></ul>
+<h4><span class="mw-headline" id="Take_cake_about_the_environment">Take cake about the environment</span></h4>
+<p>If you alter SystemD unit <code>terraria.service</code>, for example change port or path to the world file, you will need to reload systemd daemon before you start the changed service. To avoid this reload you can store values as environment variables.
+</p>
+<ol><li>Create file <code>.env</code>.<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># .env</span>
+<span class="nv">TERRARIA_PORT</span><span class="o">=</span><span class="m">7777</span>
+<span class="nv">TERRARIA_PASS</span><span class="o">=</span><span class="s2">"very_secret_password"</span>
+<span class="nv">TERRARIA_PLAYERS</span><span class="o">=</span><span class="m">4</span>
+<span class="nv">TERRARIA_WORLD_PATH</span><span class="o">=</span><span class="s2">"/home/terraria/.local/share/Terraria/Worlds/YourVeryPrecious.wld"</span>
+</pre></div></li>
+<li>Alter <code>terraria.service</code> with property <code>EnvironmentFile</code> and names of variables from <code>.env</code> file <div class="mw-highlight mw-highlight-lang-systemd mw-content-ltr" dir="ltr"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Runs a Terraria vanila server</span>
+<span class="na">Documentation</span><span class="o">=</span><span class="s">https://terraria.fandom.com/wiki/Server#Starting_the_server</span>
+<span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">300</span>
+<span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/home/terraria/.env</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/terraria/1449/Linux/TerrariaServer.bin.x86_64 </span>\
+<span class="w">    </span><span class="s">-port $TERRARIA_PORT </span>\
+<span class="w">    </span><span class="s">-pass $TERRARIA_PASS </span>\
+<span class="w">    </span><span class="s">-players $TERRARIA_PLAYERS </span>\
+<span class="w">    </span><span class="s">-world $TERRARIA_WORLD_PATH</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
+</pre></div></li>
+<li>Reload daemon <code>systemctl --user daemon-reload</code> and restart the service <code>systemctl --user restart terraria.service</code>.</li></ol>
+<p>Next time when you will change values inside <code>.env</code> you will need only to restart the service.
+</p>
+<h4><span class="mw-headline" id="Make_it_symbolic">Make it symbolic</span></h4><p>
+If you are upgrading a Terraria server to different version you also can store path to executable in <code>.env</code> file. Or you can use a symbolic link. In that case you will need only to remove old symbolic link, create new one and than restart the service. </p><div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span><span class="m">1449</span>/Linux<span class="w"> </span>latest
+ls<span class="w"> </span>-l
+<span class="c1"># output:</span>
+<span class="c1"># drwxrwxr-x 5 terraria terraria ... 1449</span>
+<span class="c1"># lrwxrwxrwx 1 terraria terraria ... latest -&gt; /home/terraria/1449/Linux/</span>
+</pre></div><p>
+After that your <code>terraria.service</code> will look like this: </p><div class="mw-highlight mw-highlight-lang-systemd mw-content-ltr" dir="ltr"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Runs a Terraria vanila server</span>
+<span class="na">Documentation</span><span class="o">=</span><span class="s">https://terraria.fandom.com/wiki/Server#Starting_the_server</span>
+<span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">300</span>
+<span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/home/terraria/.env</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/home/terraria/latest/TerrariaServer.bin.x86_64 </span>\
+<span class="w">    </span><span class="s">-port $TERRARIA_PORT </span>\
+<span class="w">    </span><span class="s">-pass $TERRARIA_PASS </span>\
+<span class="w">    </span><span class="s">-players $TERRARIA_PLAYERS </span>\
+<span class="w">    </span><span class="s">-world $TERRARIA_WORLD_PATH</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
+</pre></div>
+<h2><span id="How_to_.28RPI_.2F_Others_OSes.29"></span><span class="mw-headline" id="How_to_(RPI_/_Others_OSes)">How to (RPI / Others OSes)</span></h2>
+<p>If you are using an operating system (Such as Raspberry Pi OS (previously called Raspbian) or FreeBSD) that does not come with a prebuilt executable, you could use <b>mono</b> to start the server. This could be useful if you want to host a server on a device such as a <b>Raspberry Pi</b>, or any device that does not run on the x86 architecture.
+</p>
+<h3><span class="mw-headline" id="Prerequisites_2">Prerequisites</span></h3>
+<p>NOTE: If you are using a non-x86 Linux-based operating system (Such as Raspberry Pi OS), the first few instructions should be the same as the one found <a class="mw-selflink-fragment" href="#How_to_(Linux)">here</a>, up until the <code>chmod</code> command. You would need to install <b>mono</b> and and any other required libraries (such as <b>sqlite</b> or <b>screen</b>) if it does not come preinstalled on your system.
+</p>
+<h3><span class="mw-headline" id="Launching_the_server">Launching the server</span></h3>
+<ol><li><a class="mw-selflink-fragment" href="#Downloads">Download</a> and extract the Terraria files following your system specifications. (For Raspberry Pi Users Follow The <a class="mw-selflink-fragment" href="#How_to_(Linux)">Linux</a> Guide)</li>
+<li>Navigate to the <b>Linux</b> directory.</li>
+<li>Launch the server by using the following mono command: <code>mono --server --gc=sgen -O=all ./TerrariaServer.exe</code></li></ol>
+<p>The server should run as expected.
+</p>
+<h3><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h3>
+<p>If you encounter an error saying <b>"Your mono runtime and class libraries are out of sync."</b>, navigate within the Terraria directory and remove monoconfig, mscorlib.dll, and any files that begin with "Mono" or "System".
+</p><p>Example instructions with Linux:
+</p>
+<pre>rm System*
+rm Mono*
+rm monoconfig
+rm mscorlib.dll</pre>
+<p>WindowsBase.dll and FNA.dll should be the only .dll files in the directory
+</p><p>NOTE: This procedure will delete any other files starting with "Mono" or "System", so keep that in mind!
+</p>
+<h2><span class="mw-headline" id="Downloads">Downloads</span></h2>
+<p>The vanilla Terraria server software is included with the regular Terraria package (see above), but can also be downloaded:
+</p>
+<ul><li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1423.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.2.3</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-143.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1431.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.1</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1432.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.2</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1433.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.3</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1434.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.4</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1435.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.5</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1436.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.3.6</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-144.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1441-fixed.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.1</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1442.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.2</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1443.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.3</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1444.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.4</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1445.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.5</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1446-fixed.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.6</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1447.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.7</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1448.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.8</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-14481.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.8.1</a></li>
+<li><a class="external text" href="https://terraria.org/api/download/pc-dedicated-server/terraria-server-1449.zip" rel="nofollow noreferrer noopener" target="_blank">Terraria Server 1.4.4.9</a></li></ul>
+<p>Dedicated Server GUI is a third-party add-on for the vanilla server that offers graphical controls (the server is normally a command-line program):
+</p>
+<ul><li><a class="external text" href="https://github.com/oiisamiio/TerrariaDedicatedServerGui/releases" rel="nofollow noreferrer noopener" target="_blank">Dedicated Server GUI</a>.</li></ul>
+<p><a class="external text" href="http://tshock.co/xf/" rel="nofollow noreferrer noopener" target="_blank">Tshock</a> and TDSM are third-party server packages that offer additional functionality, such as in-game commands, whitelists, player passwords, and a plugin interface for added features (such as factions):
+</p>
+<ul><li><a class="external text" href="https://github.com/NyxStudios/TShock/releases" rel="nofollow noreferrer noopener" target="_blank">Tshock</a></li>
+<li><a class="external text" href="https://github.com/DeathCradle/Terraria-s-Dedicated-Server-Mod" rel="nofollow noreferrer noopener" target="_blank">TDSM</a> (Latest version 1.3.2.1; No longer maintained.)</li></ul>
+<h2><span class="mw-headline" id="Server_files">Server files</span></h2>
+<p>The Windows server consists of these files:
+</p>
+<ul><li><b>TerrariaServer.exe</b> - The main server file. Can be run stand-alone.</li>
+<li><b>serverconfig.txt</b> - The server config files. Defines all parameters for the server (see below).</li>
+<li><b>start-server.bat</b> - A Windows Batch file which starts the server using the <b>serverconfig.txt</b> file. Also contains a loopback to restart the server if it should crash.</li>
+<li><b>start-server-steam-friends.bat</b> - functions as "Host &amp; Play" would, but through the console. steam friends will be able to join your game through this.</li></ul>
+<h2><span class="mw-headline" id="List_of_console_commands">List of console commands</span></h2>
+<p>Once a dedicated server is running, the following commands can be run:
+</p>
+<ul><li><code>help</code> -  Displays a list of commands.</li>
+<li><code>playing</code> -  Shows the list of players. This can be used in-game by typing /playing into the chat.</li>
+<li><code>clear</code> -  Clear the console window.</li>
+<li><code>exit</code> -  Shutdown the server and save.</li>
+<li><code>exit-nosave</code> - Shutdown the server without saving.</li>
+<li><code>save</code> -  Save the game world.</li>
+<li><code>kick &lt;player name&gt;</code> - Kicks a player from the server.</li>
+<li><code>ban &lt;player name&gt;</code> - Bans a player from the server.</li>
+<li><code>password</code> -  Show password.</li>
+<li><code>password &lt;pass&gt;</code> - Change password.</li>
+<li><code>version</code> -  Print version number.</li>
+<li><code>time</code> -  Display game time.</li>
+<li><code>port</code> -  Print the listening port.</li>
+<li><code>maxplayers</code> - Print the max number of players.</li>
+<li><code>say &lt;message&gt;</code> - Send a message to all players. They will see the message in yellow prefixed with <b>&lt;server&gt;</b> in the chat.</li>
+<li><code>motd</code> -  Print MOTD.</li>
+<li><code>motd &lt;message&gt;</code> - Change MOTD.</li>
+<li><code>dawn</code> -  Change time to dawn (4:30 AM).</li>
+<li><code>noon</code> -  Change time to noon (12:00 PM).</li>
+<li><code>dusk</code> -  Change time to dusk (7:30 PM).</li>
+<li><code>midnight</code> -  Change time to midnight (12:00 AM).</li>
+<li><code>settle</code> -  Settle all water.</li></ul>
+<p>Note that a forward-slash <span class="key"><a href="/wiki/Game_controls" title="Game controls"><kbd>/</kbd></a></span> is <b>not</b> required to precede the command, as some command interfaces require. For a list of Tshock commands, refer to <a class="external text" href="https://tshock.readme.io/docs/getting-started" rel="nofollow noreferrer noopener" target="_blank">the TShock readme</a>.
+</p>
+<h2><span class="mw-headline" id="Command_line_parameters">Command line parameters</span></h2>
+<p>The following is a list of parameters that can be entered when running TerrariaServer initially:
+</p>
+<ul><li><code>-config &lt;file path&gt;</code> - Specifies a configuration file to use (see <a href="#serverconfig">Server config file</a> below).</li>
+<li><code>-port &lt;number&gt;</code> - Specifies the port to listen on.</li>
+<li><code>-players &lt;number&gt; / -maxplayers &lt;number&gt;</code> - Sets the max number of players.</li>
+<li><code>-pass &lt;password&gt; / -password &lt;password&gt;</code> - Sets the server password.</li>
+<li><code>-motd &lt;text&gt;</code> - Set the server motto of the day text.</li>
+<li><code>-world &lt;file path&gt;</code> - Load a world and automatically start the server.</li>
+<li><code>-autocreate &lt;number&gt;</code> - Creates a world if none is found in the path specified by -world. World size is specified by: 1(small), 2(medium), and 3(large).</li>
+<li><code>-banlist &lt;file path&gt;</code> - Specifies the location of the banlist. Defaults to "banlist.txt" in the working directory.</li>
+<li><code>-worldname &lt;world name&gt;</code> - Sets the name of the world when using -autocreate.</li>
+<li><code>-secure</code> - Adds additional cheat protection to the server.</li>
+<li><code>-noupnp</code> - Disables automatic universal plug and play.</li>
+<li><code>-steam</code> - Enables Steam support.</li>
+<li><code>-lobby friends / -lobby private</code> - Allows only friends to join the server or sets it to private if Steam is enabled.</li>
+<li><code>-ip &lt;ip address&gt;</code> - Sets the IP address for the server to listen on</li>
+<li><code>-forcepriority &lt;priority&gt;</code> - Sets the process priority for this task. If this is used the "priority" setting below will be ignored.</li>
+<li><code>-disableannouncementbox</code> - Disables the text announcements Announcement Box makes when pulsed from wire.</li>
+<li><code>-announcementboxrange &lt;number&gt;</code> - Sets the announcement box text messaging range in pixels, -1 for serverwide announcements.</li>
+<li><code>-seed &lt;seed&gt;</code> - Specifies the world seed when using -autocreate <span id="serverconfig"></span></li></ul>
+<h2><span class="mw-headline" id="Server_config_file">Server config file</span></h2>
+<p>It is possible to start the dedicated server using a configuration file that enters the above parameters automatically. The config file must be called using the -config parameter. The file can have any name, but must be in the same folder as TerrariaServer.exe. If a server config file is defined and the file is not located during the server boot, then the server will ask the user to input the parameters as it would if run without a defined config file.
+</p><p>The following is a list of available config commands:
+</p>
+<ul><li><code>world=C:\Users\Defaults\My Documents\My Games\Terraria\Worlds\world1.wld</code> - Load a world and automatically start the server.</li>
+<li><code>autocreate=3</code> - Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large).</li>
+<li><code>seed=AwesomeSeed</code> - Sets the world seed when using autocreate</li>
+<li><code>worldname=World</code> - Sets the name of the world when using autocreate</li>
+<li><code>difficulty=0</code> - Sets world difficulty when using -autocreate. Options: 0(normal), 1(expert), 2(master), 3(journey) [Note: Mobile Servers require 1 to be added to the difficulty (e.g. 2 is expert for mobile terraria servers).]</li>
+<li><code>maxplayers=8</code> - Sets the max number of players allowed on a server. Value must be between 1 and 255</li>
+<li><code>port=7777</code> - Set the port number</li>
+<li><code>password=p@55w0rd*</code> - Set the server password</li>
+<li><code>motd=Please don’t cut the purple trees!</code> - Set the message of the day</li>
+<li><code>worldpath=C:\Users\Defaults\My Documents\My Games\Terraria\Worlds\</code> - Sets the folder where world files will be stored</li>
+<li><code>banlist=banlist.txt</code> - The location of the banlist. Defaults to "banlist.txt" in the working directory.</li>
+<li><code>secure=1</code> - Adds additional cheat protection.</li>
+<li><code>language</code> - Sets the server language from its language code. Available codes:
+<ul><li><code>en-US</code> = English</li>
+<li><code>de-DE</code> = German</li>
+<li><code>it-IT</code> = Italian</li>
+<li><code>fr-FR</code> = French</li>
+<li><code>es-ES</code> = Spanish</li>
+<li><code>ru-RU</code> = Russian</li>
+<li><code>zh-Hans</code> = Chinese</li>
+<li><code>pt-BR</code> = Portuguese</li>
+<li><code>pl-PL</code> = Polish</li></ul></li>
+<li><code>upnp=1</code> - Automatically forward ports with uPNP.</li>
+<li><code>npcstream=60</code> - Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off.</li>
+<li><code>priority=1</code> - Default system priority 0:Realtime, 1:High, 2:AboveNormal, 3:Normal, 4:BelowNormal, 5:Idle</li>
+<li><b>Journey Mode power permissions for every individual power.</b> 0: Locked for everyone, 1: Can only be changed by host, 2: Can be changed by everyone
+<ul><li><code>journeypermission_time_setfrozen=2</code></li>
+<li><code>journeypermission_time_setdawn=2</code></li>
+<li><code>journeypermission_time_setnoon=2</code></li>
+<li><code>journeypermission_time_setdusk=2</code></li>
+<li><code>journeypermission_time_setmidnight=2</code></li>
+<li><code>journeypermission_godmode=2</code></li>
+<li><code>journeypermission_wind_setstrength=2</code></li>
+<li><code>journeypermission_rain_setstrength=2</code></li>
+<li><code>journeypermission_time_setspeed=2</code></li>
+<li><code>journeypermission_rain_setfrozen=2</code></li>
+<li><code>journeypermission_wind_setfrozen=2</code></li>
+<li><code>journeypermission_increaseplacementrange=2</code></li>
+<li><code>journeypermission_setdifficulty=2</code></li>
+<li><code>journeypermission_biomespread_setfrozen=2</code></li>
+<li><code>journeypermission_setspawnrate=2</code></li></ul></li></ul>
+<p>Comment lines can be included using the hash symbol (#). Lines that begin with # will be skipped entirely.
+</p>
+<h2><span class="mw-headline" id="Banning_and_un-banning">Banning and un-banning</span></h2>
+<p>The command <code>ban &lt;player&gt;</code> will ban the indicated player from the server. A banned player, when they try to login, will be displayed the message:You are banned for [duration]: [reason]- [modname]. A banned player may then be un-banned by editing the file "banlist.txt," which is located in the Terraria folder. This document contains a list of all currently banned players. To un-ban a player, delete the player's name and IP address from the list.
+</p>
+<h2><span class="mw-headline" id="System_requirements">System requirements</span></h2>
+<ul><li>Windows Operating System</li>
+<li>500 MB free RAM for a small world (RAM depends on world size and number of players)</li>
+<li>.NET Framework 4.0</li>
+<li>XNA Framework</li></ul>
+<p>An easy method of installing .NET and XNA is to simply install the Terraria client, which should install both as part of its regular installation.
+</p>
+<h2><span class="mw-headline" id="Notes_2">Notes</span></h2>
+<ul><li>The server will auto-save the world now and then, but will only save on shutdown when using the exit command. That said, consider saving manually prior to shutdown.</li>
+<li>When no players are online the server hibernates. Time only passes when players are connected.</li>
+<li>When you launch a server, it will ask if you want to auto port forward, however this doesn't always work.</li>
+<li>Servers are often set up using <a class="external text" href="https://secure.logmein.com/products/hamachi/" rel="nofollow noreferrer noopener" target="_blank">Hamachi</a>. This removes the need of having to port-forward, but relies on a third party program.</li>
+<li>Some servers will boost health, If a server is in expert mode, the destroyer may have 1,000,000+ health / hp (hitpoints)</li></ul>
+<h2><span class="mw-headline" id="LAN">LAN</span></h2>
+<p>Below are instructions for a very basic LAN party setup. At the very least, all computers must be connected to the same network for this to work. If you feel so inclined, you can set the server to have a static LAN IP address, but that's not really necessary. Note that these instructions are targeted at people who have little to no networking experience, and just want to play games.
+</p>
+<ol><li>Make sure that all computers are connected to the same network
+<ul><li>Connect the computers to the network via ethernet if possible, since ethernet is almost always faster than wireless.</li>
+<li>If you have a regular home router and want to connect many players, you can connect more computers to the network via ethernet by use of a switch. Simply plug any port of the switch into the router, and plug the rest of the computers (and the server) into the switch. If you don't have a switch, try to at least connect the computer running the server to the network via ethernet. If you can't do that, just make sure all computers are connected to the same wifi connection and it will probably work, just a bit more slowly.</li></ul></li>
+<li>Get server information
+<ul><li>First, make sure that the server is connected to the internet, or at least connected to your router. To test router connectivity, you can try logging into your router via web panel. Usually the router login information is printed on a sticker on the back of the router. If the page loads, great - just make sure the other computers are connected to the same network.</li>
+<li>Windows:
+<ul><li>Open Command Prompt and run "ipconfig" to get information about your network. Record the IP address that appears after "IPV4 Address......" It should be something like 192.168.1.27, 172.16.0.55 10.0.0.42. This is the IP address you will use for joining on terraria. If the IP address starts with 127, look for one that doesn't. If it starts with 169, you're doing something wrong.</li></ul></li>
+<li>MacOS:
+<ul><li>Open System Preferences &gt; Network and record the IP Address. See above for what the IP should look like.</li></ul></li>
+<li>GNU/Linux:
+<ul><li>Run "ifconfig" or "ip a" from a terminal window to get your local IP. See above for what the IP should look like.</li></ul></li></ul></li>
+<li>Connect the clients to the server
+<ul><li>Open Terraria, click multiplayer, and connect to the IP address that you recorded from the second step.</li>
+<li>You should be connected to the server!</li></ul></li>
+<li>Troubleshooting (if something doesn't work)
+<ul><li>Make sure that the firewall on the computer running the server is disabled, or at least allows traffic through on port 7777. Be sure to re-enable the firewall once again when you have the chance.</li>
+<li>If your local IP address does start with 169, you should check your network settings to get connected to the internet.</li>
+<li>The IP of the server may change, especially if the router restarts. If you are unable to connect to the server, go through step 2 once again to see if the IP has changed.
+<ul><li>If this becomes a recurring problem, you should look up "setting a static IP on (OS Name)", where OS Name is the name of the server's operating system.</li></ul></li>
+<li>If you set the port of the Terraria server to something other than the default of 7777, make sure that the clients are connecting to whatever port the server is configured to use.</li></ul></li></ol>
+<h2><span class="mw-headline" id="History">History</span></h2>
+<div class="history-header" id="history_desktop"><span typeof="mw:File"><a href="/wiki/PC_version" title="PC version"><img alt="PC version" class="mw-file-element" data-file-height="48" data-file-width="64" data-image-key="PC_only.png" data-image-name="PC only.png" data-relevant="0" decoding="async" height="15" loading="lazy" src="https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/PC_only.png/revision/latest/scale-to-width-down/20?cb=20220808172135&amp;format=original" width="20"/></a></span><a class="mw-redirect" href="/wiki/PC_version" title="PC version"> PC version</a></div>
+<ul><li><span class="history-title" id="history_Desktop_1.4.0.1"><a class="mw-redirect" href="/wiki/Desktop_1.4.0.1" title="Desktop 1.4.0.1">Desktop 1.4.0.1</a></span>: 
+<ul><li>New difficulty values: 2 for master mode, 3 for journey mode.</li>
+<li>A bunch of configuration file options have been added for controlling journey mode power permissions.</li></ul></li></ul>
+<ul><li><span class="history-title" id="history_Desktop_1.3.0.4"><a class="mw-redirect" href="/wiki/Desktop_1.3.0.4" title="Desktop 1.3.0.4">Desktop 1.3.0.4</a></span>: 
+<ul><li>Dedicated servers can now be launched with -forcepriority to override server settings file's process priority.</li>
+<li>Dedicated server can now use -ip again to set their local IP address.</li></ul></li></ul>
+<ul><li><span class="history-title" id="history_Desktop_1.3.0.3"><a class="mw-redirect" href="/wiki/Desktop_1.3.0.3" title="Desktop 1.3.0.3">Desktop 1.3.0.3</a></span>: You should now have an easier time reporting errors if they happen on a server.</li></ul>
+<ul><li><span class="history-title" id="history_Desktop_1.3.0.2"><a class="mw-redirect" href="/wiki/Desktop_1.3.0.2" title="Desktop 1.3.0.2">Desktop 1.3.0.2</a></span>: 
+<ul><li>You will now be able to enter the password every time when entering or creating a server.</li>
+<li>Many issues with the dedicated server and its configurations have been resolved.</li>
+<li>Fixed an issue where users would be unable to invite each other when in "Invite Only" mode.</li></ul></li></ul>
+<ul><li><span class="history-title" id="history_Desktop_1.2.3.1"><a class="mw-redirect" href="/wiki/Desktop_1.2.3.1" title="Desktop 1.2.3.1">Desktop 1.2.3.1</a></span>: Fixed crashes when starting the dedicated server in a language other than English.</li></ul>
+<ul><li><span class="history-title" id="history_Desktop_1.0.2"><a class="mw-redirect" href="/wiki/Desktop_1.0.2" title="Desktop 1.0.2">Desktop 1.0.2</a></span>: 
+<ul><li>Servers now listen to all IP addresses on the hosting PC, regardless of how many network connections are active.</li>
+<li>Typing "localhost" instead of your own local IP address will connect to your own same-PC server.</li>
+<li>Game default port changed from 31337 to 7777.</li>
+<li>Client will now resolve a hostname into its IP address, for example, if randomsite.org ran a server, you could type randomsite.org as the IP address and be able to connect.</li></ul></li></ul>
+<ul><li><span class="history-title" id="history_Desktop-Release"><a class="mw-redirect" href="/wiki/Desktop-Release" title="Desktop-Release">Desktop-Release</a></span>: Introduced.</li></ul>
+<div class="history-header" id="history_console"><span typeof="mw:File"><a href="/wiki/Console_version" title="Console version"><img alt="Console version" class="mw-file-element" data-file-height="13" data-file-width="17" data-image-key="Console_only.png" data-image-name="Console only.png" data-relevant="0" decoding="async" height="16" loading="lazy" src="https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6c/Console_only.png/revision/latest?cb=20171217220902&amp;format=original" width="21"/></a></span><a href="/wiki/Console_version" title="Console version"> Console version</a></div>
+<ul><li><span class="history-title" id="history_Console-Release"><a class="mw-redirect" href="/wiki/Console-Release" title="Console-Release">Console-Release</a></span>: Introduced.</li></ul>
+<div class="history-header" id="history_mobile"><span typeof="mw:File"><a href="/wiki/Mobile_version" title="Mobile version"><img alt="Mobile version" class="mw-file-element" data-file-height="64" data-file-width="44" data-image-key="Mobile_only.png" data-image-name="Mobile only.png" data-relevant="0" decoding="async" height="20" loading="lazy" src="https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Mobile_only.png/revision/latest/scale-to-width-down/14?cb=20220808172817&amp;format=original" width="14"/></a></span><a href="/wiki/Mobile_version" title="Mobile version"> Mobile version</a></div>
+<ul><li><span class="history-title" id="history_Mobile-Release"><a class="mw-redirect" href="/wiki/Mobile-Release" title="Mobile-Release">Mobile-Release</a></span>: Introduced.</li></ul>
+<div class="history-header" id="history_3ds"><a href="/wiki/3DS_version" title="3DS version">Nintendo <span style="display:none">3DS</span></a><span typeof="mw:File"><a href="/wiki/3DS_version" title="Nintendo 3DS version"><img alt="Nintendo 3DS version" class="mw-file-element lazyload" data-file-height="30" data-file-width="107" data-image-key="3DS.svg" data-image-name="3DS.svg" data-relevant="0" data-src="https://static.wikia.nocookie.net/ucp-internal-test-starter-commons/images/8/8d/3DS.svg/revision/latest/scale-to-width-down/39?cb=20200818143028&amp;format=original" decoding="async" height="11" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIABAAAAAP///yH5BAEAAAEALAAAAAABAAEAQAICTAEAOw%3D%3D" width="39"/></a></span><a href="/wiki/3DS_version" title="3DS version"> version</a></div>
+<ul><li><span class="history-title" id="history_3DS-Release"><a class="mw-redirect" href="/wiki/3DS-Release" title="3DS-Release">3DS-Release</a></span>: Introduced.</li></ul>
+<div class="navbox mw-collapsible mw-made-collapsible"><button aria-expanded="true" class="mw-collapsible-toggle mw-collapsible-toggle-default" tabindex="0" type="button"><span class="mw-collapsible-text">Collapse</span></button><div class="vde plainlinks"><a class="text" href="https://terraria.fandom.com/wiki/Template:Game_mechanics/content" rel="noreferrer noopener" target="_blank"><span title="View this template">V</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template_talk:Game_mechanics/content" rel="noreferrer noopener" target="_blank"><span title="Discuss this template">D</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template:Game_mechanics/content?action=edit" rel="noreferrer noopener" target="_blank"><span title="Edit this template">E</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template:Game_mechanics?action=purge" rel="noreferrer noopener" target="_blank"><span title="Purge cache of this template">P</span></a></div><div class="header"><a href="/wiki/Game_mechanics" title="Game mechanics">Game mechanics</a></div><div class="content mw-collapsible-content"><div class="table"><div><div class="h1" style="">Combat</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Attack_speed" title="Attack speed">Attack speed</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Autoswing" title="Autoswing">Autoswing</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Critical_hit" title="Critical hit">Critical hit</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Damage" title="Damage">Damage</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Knockback" title="Knockback">Knockback</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Lock_on" title="Lock on">Lock on</a></span><span class="eico s i0 i1 i4 i8" title="PC, Console, Mobile and 3DS versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a class="mw-redirect" href="/wiki/Minions" title="Minions">Minions</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Velocity" title="Velocity">Velocity</a></span></span></li></ul></div></div><div><div class="h1" style="">Environment</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Ambient_objects" title="Ambient objects">Ambient objects</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Ambient_entities" title="Ambient entities">Ambient entities</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Biome_backgrounds" title="Biome backgrounds">Biome backgrounds</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Biomes" title="Biomes">Biomes</a></span></span> (<a href="/wiki/Biome_spread" title="Biome spread">Spread</a>)</li><li>​<span class="eil"><span><a href="/wiki/Day_and_night_cycle" title="Day and night cycle">Day and night cycle</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Events" title="Events">Events</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Gravity" title="Gravity">Gravity</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Hardmode" title="Hardmode">Hardmode</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Liquids" title="Liquids">Liquids</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Moon_phase" title="Moon phase">Moon</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Music" title="Music">Music</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/NPC_despawning" title="NPC despawning">NPC despawning</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/NPC_spawning" title="NPC spawning">NPC spawning</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Pre-Hardmode" title="Pre-Hardmode">Pre-Hardmode</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Secret_world_seeds" title="Secret world seeds">Secret seeds</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Status_messages" title="Status messages">Status messages</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Wind" title="Wind">Wind</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/World" title="World">World</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/World_Seed" title="World Seed">World Seed</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/World_size" title="World size">World size</a></span></span></li></ul></div></div><div><div class="h1" style="">Interface</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Minimap" title="Minimap">Minimap</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Logo" title="Logo">Logo</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Title_messages" title="Title messages">Title messages</a></span><span class="eico s i0 i9 i10" title="PC, tModLoader and tModLoader 1.3-Legacy versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Tips" title="Tips">Tips</a></span><span class="eico s i0 i1 i2 i8" title="PC, Console, Old-gen console and 3DS versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Resource_Pack" title="Resource Pack">Resource Packs</a></span><span class="eico s i0 i9 i10" title="PC, tModLoader and tModLoader 1.3-Legacy versions"><b></b><i></i><s></s></span></span></li></ul></div></div><div><div class="h1" style="">Items</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Alternative_crafting_ingredients" title="Alternative crafting ingredients">Alternative crafting ingredients</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Block_Swap" title="Block Swap">Block Swap</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Consumables" title="Consumables">Consumables</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Crafting_stations" title="Crafting stations">Crafting stations</a></span></span> (<a href="/wiki/By_Hand" title="By Hand">By Hand</a>)</li><li>​<span class="eil"><span><a href="/wiki/Crossover_content" title="Crossover content">Crossover content</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Explosion-proof_objects" title="Explosion-proof objects">Explosion-proof objects</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Flat_surface_items" title="Flat surface items">Flat surface items</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Mining_speed" title="Mining speed">Mining speed</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Modifiers" title="Modifiers">Modifiers</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/NPC_drops" title="NPC drops">NPC drops</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Placement" title="Placement">Placement</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Pickaxe_power" title="Pickaxe power">Pickaxe power</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Rarity" title="Rarity">Rarity</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Recipes" title="Recipes">Recipes</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Storage_items" title="Storage items">Storage</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Tooltips" title="Tooltips">Tooltips</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Use_time" title="Use time">Use time</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Value" title="Value">Value</a></span></span></li></ul></div></div><div><div class="h1" style="">Game</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Achievements" title="Achievements">Achievements</a></span><span class="eico s i0 i1 i2 i4" title="PC, Console, Old-gen console and Mobile versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/AI" title="AI">AI</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Camera_Mode" title="Camera Mode">Camera Mode</a></span><span class="eico s i0 i4" title="PC and Mobile versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Config.json_settings" title="Config.json settings">Config.json</a></span><span class="eico s i0 i4" title="PC and Mobile versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Credits" title="Credits">Credits</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Cursor_modes" title="Cursor modes">Cursor modes</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Data_IDs" title="Data IDs">Data IDs</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Difficulty" title="Difficulty">Difficulty</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Emote_Commands" title="Emote Commands">Emote Commands</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Expert_Mode" title="Expert Mode">Expert Mode</a></span><span class="eico s i0 i1 i4 i7 i9 i10" title="PC, Console, Mobile, Old Chinese, tModLoader and tModLoader 1.3-Legacy versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Fishing" title="Fishing">Fishing</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Game_controls" title="Game controls">Game controls</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Game_platform" title="Game platform">Game platform</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Golf" title="Golf">Golf</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Hoik" title="Hoik">Hoik</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Journey_Mode" title="Journey Mode">Journey Mode</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Lighting_mode" title="Lighting mode">Lighting mode</a></span><span class="eico s i0" title="PC version"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Master_Mode" title="Master Mode">Master Mode</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Music" title="Music">Music</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/NPC_names" title="NPC names">NPC names</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Parallax" title="Parallax">Parallax</a></span><span class="eico s i0 i1 i4" title="PC, Console and Mobile versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Pylons" title="Pylons">Pylons</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Settings" title="Settings">Settings</a></span><span class="eico s i0 i4 i8" title="PC, Mobile and 3DS versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Town" title="Town">Town</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Tutorial" title="Tutorial">Tutorial</a></span><span class="eico s i1 i2 i5 i8" title="Console, Old-gen console, Windows Phone and 3DS versions"><b></b><i></i><s></s></span></span></li></ul></div></div><div><div class="h1" style="">Multiplayer</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><strong class="mw-selflink selflink">Server</strong></span></span></li><li>​<span class="eil"><span><a href="/wiki/Chat" title="Chat">Chat</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Multiplayer" title="Multiplayer">Multiplayer</a></span></span></li></ul></div></div><div><div class="h1" style="">Player</div><div class="dotlist" style=";"><ul><li>​<span class="eil"><span><a href="/wiki/Aggro" title="Aggro">Aggro</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Breath_meter" title="Breath meter">Breath meter</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Buffs" title="Buffs">Buffs</a></span></span> and <span class="eil"><span><a href="/wiki/Debuffs" title="Debuffs">debuffs</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Character" title="Character">Character</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Character_styles" title="Character styles">Character styles</a></span><span class="eico s i0 i1 i4 i7 i9 i10" title="PC, Console, Mobile, Old Chinese, tModLoader and tModLoader 1.3-Legacy versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Damage_reduction" title="Damage reduction">Damage reduction</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Death" title="Death">Death</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Defense" title="Defense">Defense</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Drowning" title="Drowning">Drowning</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Extra_jump" title="Extra jump">Extra jump</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Fall_damage" title="Fall damage">Fall damage</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Ghost" title="Ghost">Ghost</a></span><span class="eico s i0 i1 i2 i4 i7 i9 i10" title="PC, Console, Old-gen console, Mobile, Old Chinese, tModLoader and tModLoader 1.3-Legacy versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Hairstyles" title="Hairstyles">Hairstyles</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Health" title="Health">Health</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Health_regeneration" title="Health regeneration">Health regeneration</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Inventory" title="Inventory">Inventory</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Loadouts" title="Loadouts">Loadouts</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Luck" title="Luck">Luck</a></span><span class="eico s i0 i1 i4 i9" title="PC, Console, Mobile and tModLoader versions"><b></b><i></i><s></s></span></span></li><li>​<span class="eil"><span><a href="/wiki/Mana" title="Mana">Mana</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Movement_speed" title="Movement speed">Movement speed</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Player_stats" title="Player stats">Player stats</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Social_slots" title="Social slots">Social slots</a></span></span></li><li>​<span class="eil"><span><a href="/wiki/Spawn" title="Spawn">Spawn</a></span></span></li></ul></div></div></div></div></div>
+<div class="navbox mw-collapsible mw-made-collapsible"><button aria-expanded="true" class="mw-collapsible-toggle mw-collapsible-toggle-default" tabindex="0" type="button"><span class="mw-collapsible-text">Collapse</span></button><div class="vde plainlinks"><a class="text" href="https://terraria.fandom.com/wiki/Template:Software_navigation/content" rel="noreferrer noopener" target="_blank"><span title="View this template">V</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template_talk:Software_navigation/content" rel="noreferrer noopener" target="_blank"><span title="Discuss this template">D</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template:Software_navigation/content?action=edit" rel="noreferrer noopener" target="_blank"><span title="Edit this template">E</span></a> • <a class="text" href="https://terraria.fandom.com/wiki/Template:Software_navigation?action=purge" rel="noreferrer noopener" target="_blank"><span title="Purge cache of this template">P</span></a></div><div class="header"><a href="/wiki/Template:Software_navigation" title="Template:Software navigation">Terraria-related software</a></div><div class="content mw-collapsible-content"><div class="dotlist l" style="line-height: 2;;"><ul><li>​<span class="nowrap" style=";"><strong class="mw-selflink selflink">Servers</strong> (<a href="/wiki/TShock" title="TShock">TShock</a>)</span></li><li>​<span class="nowrap" style=";"><a href="/wiki/Map_viewers" title="Map viewers">Map viewers</a></span></li><li>​<span class="nowrap" style=";"><a href="/wiki/Inventory_editors" title="Inventory editors">Inventory editors</a></span></li><li>​<span class="nowrap" style=";"><a href="/wiki/Mods" title="Mods">Mods</a> (<a href="/wiki/TModLoader" title="TModLoader">tModLoader</a>)</span></li></ul></div></div></div>
+<!-- 
+NewPP limit report
+Cached time: 20251220143942
+Cache expiry: 2592000
+Reduced expiry: false
+Complications: [show‐toc]
+CPU time usage: 0.336 seconds
+Real time usage: 0.933 seconds
+Preprocessor visited node count: 12317/1000000
+Post‐expand include size: 101026/2097152 bytes
+Template argument size: 5444/2097152 bytes
+Highest expansion depth: 16/100
+Expensive parser function count: 5/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 5983/5000000 bytes
+ExtLoops count: 0/200
+Lua time usage: 0.071/7.000 seconds
+Lua memory usage: 6775133/104857600 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  816.322      1 -total
+ 18.80%  153.488     10 Template:History
+ 17.87%  145.898     50 Template:L10n/register
+ 12.56%  102.559     34 Template:L10n
+ 10.18%   83.081      1 Template:Desktop_version
+  9.96%   81.274      1 Template:Key
+  9.56%   78.043      4 Template:Icon-version/l10n
+  9.01%   73.529      1 Template:Key/l10n
+  4.41%   36.022      1 Template:Language_info
+  2.63%   21.496     10 Template:History/title
+-->
+<!-- Saved in parser cache with key 1.43.1_prod_terraria_gamepedia:pcache:idhash:1385-0!sseVary=RegularPage!FandomDesktop!LegacyGalleries and timestamp 20251220143942 and revision id 1209028. Rendering was triggered because: page-view
+ -->
+</div>

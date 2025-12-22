@@ -35,7 +35,7 @@ with sync_playwright() as p:
     contentToScrapeLinks = []
     for a in contentLinks:
         # contentToScrape.append(a.get_text("\n", strip=True))
-        if a.get('href') and a.get('href').startswith("/wiki/"):
+        if a.get('href') and a.get('href').startswith("/wiki/") or a.get('href').startswith('/wiki/Guide:'):
             contentToScrapeLinks.append(a.get('href'))
     
     # print(contentToScrape)
@@ -49,14 +49,18 @@ with sync_playwright() as p:
         )
     
     for links in range(0, len(contentToScrapeLinks)):
-        page.goto(
-            "https://terraria.fandom.com" + contentToScrapeLinks[links]
-            )
-        time.sleep(random.uniform(2, 10))
-        
-        soup = BeautifulSoup(page.content(), "lxml")
-        content = soup.find("div", class_="mw-parser-output")
-        with open("scraped_pages\\" + contentToScrapeLinks[links].replace("/wiki/", "").replace("/", "_") + ".html", "w", encoding="utf-8") as f:
-            f.write(str(content))
+        try: 
+            page.goto(
+                f'https://terraria.fandom.com{contentToScrapeLinks[links]}'
+                )
+            time.sleep(random.uniform(2, 10))
+            
+            soup = BeautifulSoup(page.content(), "lxml")
+            content = soup.find("div", class_="mw-parser-output")
+            with open("scraped_pages\\" + contentToScrapeLinks[links].replace("/wiki/", "").replace("/", "_") + ".html", "w", encoding="utf-8") as f:
+                f.write(str(content))
+        except TimeoutError:
+            print(f"Skipped (timeout): {links}")
+            continue
 
     browser.close()
