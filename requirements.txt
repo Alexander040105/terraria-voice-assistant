@@ -1,0 +1,8 @@
+langchain
+langchain-ollama
+langchain-chroma
+pandas
+beautifulsoup4
+requests
+lxml
+playwright
