@@ -6,3 +6,6 @@ beautifulsoup4
 requests
 lxml
 playwright
+speechrecognition
+pyttsx3
+pyaudio
