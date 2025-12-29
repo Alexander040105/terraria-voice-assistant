@@ -1,0 +1,45 @@
+Attribution Required License (ARL) 1.0
+
+Copyright (c) 2025 Alexander040105
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following condition:
+
+Attribution Requirement: In any distribution, public display, public use,
+or sublicensing of the Software (including modified versions or derivative
+works), you must give appropriate credit to the original author by
+including the following information in a visible location (for example, in a
+`NOTICE` file, application "About" screen, or documentation) and in any
+accompanying distribution material:
+
+- The text: "Based on terrariaRAG by Alexander040105"
+- A link or reference to the original repository when reasonably possible.
+- A copy of this LICENSE file or a clear reference to its location.
+
+This attribution must appear in a manner that is reasonable to the medium
+and means of distribution (for example, in source distributions include the
+attribution near the top-level README or in binary distributions include it
+in an about dialog or accompanying documentation).
+
+NO OTHER CONDITIONS. The above attribution requirement is the only
+condition placed on use of the Software. This license aims to be permissive
+while ensuring the original author receives credit for the work.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Notes:
+- This is a custom attribution-first license drafted for this project.
+- If you want an OSI-approved or well-known license with attribution semantics
+  (for example: Apache 2.0 requires preservation of NOTICE entries), consider
+  switching to that established license instead. I can help replace this with
+  a standard license and add a `NOTICE` file if you prefer.

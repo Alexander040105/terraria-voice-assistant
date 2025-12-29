@@ -6,7 +6,7 @@ import pandas as pd
 
 
 current_dir  = os.getcwd()
-df = pd.read_csv(f"{current_dir}\\scraped_pages\\terraria_data.csv")
+df = pd.read_csv(f"{current_dir}\\scraped_pages\\terraria_dataChunks.csv")
 embeddings = OllamaEmbeddings(model="llama3.2")
 
 db_location = "./chrome_langchain_db"
