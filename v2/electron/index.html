@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
+    <title>Terraria Voice Assistant</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Terraria Voice Assistant</h1>
+        <button id="start_listening"></button>
+        <div class="question-container">
+            <form action="POST">
+                <h3 id="question-label">Question</h3>   
+                <input type="text" id="question-input" name="question" placeholder="Ask your question here..." />
+                <button type="submit" id="ask-button">Ask</button>
+            </form>
+        </div>
+        <h3 id="answer"></h3>
+    </div>
+    <script src="./renderer.js"></script>
+    <script src="index.js"></script>
+    <script src="preload.js"></script>
+    
+</body>
+</html>

@@ -9,3 +9,7 @@ playwright
 speechrecognition
 pyttsx3
 pyaudio
+flask
+flask-cors
+pyinstaller
+jsonify
