@@ -11,3 +11,6 @@ pyttsx3
 pyaudio
 flask
 flask-cors
+PyQt5
+pyqt5-tools
+pyinstaller
