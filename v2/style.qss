@@ -1,0 +1,29 @@
+QMainWindow#mainWindow {
+    background-color: rgba(17, 17, 27, 235);
+    border-radius: 15px;
+    border: 1px solid #313244;
+    padding: 5px;
+}
+
+QLabel#header {
+    color: #cdd6f4;
+    font-size: 20px;
+}
+
+QPushButton#voiceButton {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    border: 2px solid #89b4fa;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+QPushButton#voiceButton:pressed {
+    background-color: #74c7ec;
+}
+
+QPushButton#voiceButton:hover {
+    background-color: #89b4fa;
+    color: #11111b;
+}
