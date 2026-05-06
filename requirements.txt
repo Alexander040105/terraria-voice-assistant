@@ -13,3 +13,8 @@ flask
 flask-cors
 pyinstaller
 jsonify
+fastapi
+uvicorn
+diskcache
+sentence-transformers
+numpy

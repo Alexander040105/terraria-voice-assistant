@@ -38,11 +38,11 @@ with sync_playwright() as p:
         if a.get('href') and a.get('href').startswith("/wiki/") or a.get('href').startswith('/wiki/Guide:'):
             contentToScrapeLinks.append(a.get('href'))
     
-    # print(contentToScrape)
-    # print(contentToScrapeLinks)
-    # text = content.get_text("\n", strip=True)
+    print(contentToScrape)
+    print(contentToScrapeLinks)
+    text = content.get_text("\n", strip=True)
 
-    # print(text)
+    print(text)
     page.close()
     page = browser.new_page(
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120"

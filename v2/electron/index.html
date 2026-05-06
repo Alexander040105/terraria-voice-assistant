@@ -3,26 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"/>
-    <title>Terraria Voice Assistant</title>
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://127.0.0.1:8765 http://localhost:8765"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://127.0.0.1:8765 http://localhost:8765"/>
+    <link rel="stylesheet" href="styles.css">
+    <title>Terraria Lorekeeper</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Terraria Voice Assistant</h1>
-        <button id="start_listening"></button>
-        <div class="question-container">
-            <form action="POST">
-                <h3 id="question-label">Question</h3>   
-                <input type="text" id="question-input" name="question" placeholder="Ask your question here..." />
-                <button type="submit" id="ask-button">Ask</button>
+    <div class="app-shell compact">
+        <header class="mini-header">
+            <div>
+                <h1>Terraria Lorekeeper</h1>
+                <p>Voice-first wiki assistant (PTT: Ctrl+Shift+Space)</p>
+            </div>
+            <div id="status-label" class="status-pill">Warming up</div>
+        </header>
+
+        <section class="ask-card">
+            <form id="ask-form" class="ask-form no-drag">
+                <input
+                    type="text"
+                    id="question-input"
+                    name="question"
+                    placeholder="Ask by voice or type..."
+                    autocomplete="off"
+                    class="no-drag"
+                />
+                <button type="submit" id="ask-button" class="no-drag">Ask</button>
+                <button type="button" id="listen-button" class="no-drag">Listen</button>
             </form>
-        </div>
-        <h3 id="answer"></h3>
+        </section>
+
+        <section class="answer-card">
+            <div class="answer-header">
+                <h3>Answer</h3>
+                <span id="confidence-badge" class="confidence-pill"></span>
+            </div>
+            <p id="answer-text">Awaiting your question.</p>
+        </section>
+
+        <section class="answer-card">
+            <div class="answer-header">
+                <h3>Evidence</h3>
+            </div>
+            <p id="evidence-text">Relevant wiki evidence will appear here.</p>
+        </section>
+
+        <section class="answer-card sources-card">
+            <div class="answer-header">
+                <h3>Sources</h3>
+            </div>
+            <ul id="source-list" class="source-list">
+                <li>No sources yet.</li>
+            </ul>
+        </section>
     </div>
     <script src="./renderer.js"></script>
-    <script src="index.js"></script>
-    <script src="preload.js"></script>
-    
 </body>
 </html>

@@ -1,12 +1,23 @@
-const { contextBridge } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("api", {
     ask: async (question) => {
-        const res = await fetch("http://127.0.0.1:8000/api/talk", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ question }),
-        });
-        return res.json();
+        return ipcRenderer.invoke("api:request", "/ask", { question }, "POST");
+    },
+    status: async () => {
+        return ipcRenderer.invoke("api:request", "/status", null, "GET");
+    },
+    health: async () => {
+        return ipcRenderer.invoke("api:request", "/health", null, "GET");
+    },
+    init: async () => {
+        return ipcRenderer.invoke("api:request", "/init", null, "POST");
+    },
+    listen: async () => {
+        return ipcRenderer.invoke("api:request", "/listen", null, "POST");
+    },
+    onPushToTalk: (handler) => {
+        ipcRenderer.removeAllListeners("push-to-talk");
+        ipcRenderer.on("push-to-talk", handler);
     },
 });

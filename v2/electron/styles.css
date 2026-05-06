@@ -1,0 +1,217 @@
+@font-face {
+    font-family: "Pixellari";
+    src: local("Pixellari"), local("Press Start 2P"), local("VT323");
+    font-display: swap;
+}
+
+:root {
+    --bg-shell: #0e0b0a;
+    --bg-panel: #1b1614;
+    --bg-card: #221b18;
+    --accent: #c9a86a;
+    --accent-strong: #b6893d;
+    --accent-cool: #6bbf8a;
+    --text: #f5f1e6;
+    --text-muted: #b9b1a4;
+    --danger: #e06658;
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: "Pixellari", "Cascadia Mono", "Courier New", monospace;
+    color: var(--text);
+    background: transparent;
+}
+
+.app-shell {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+    background:
+        radial-gradient(circle at top left, rgba(94, 131, 90, 0.25), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(71, 52, 35, 0.4), transparent 45%),
+        linear-gradient(160deg, #1c1611 0%, #0e0b0a 100%);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    -webkit-app-region: drag;
+}
+
+.mini-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    -webkit-app-region: drag;
+}
+
+.mini-header h1 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+}
+
+.mini-header p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(201, 168, 106, 0.18);
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.status-ready {
+    background: rgba(107, 191, 138, 0.2);
+    color: var(--accent-cool);
+}
+
+.ask-card {
+    background: rgba(27, 22, 20, 0.9);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ask-form {
+    display: grid;
+    grid-template-columns: 1fr 88px 88px;
+    gap: 8px;
+}
+
+.ask-form input {
+    background: #141010;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.ask-form button {
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #c9a86a 0%, #b6893d 100%);
+    color: #1a120c;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.ask-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ask-form button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.answer-card {
+    background: rgba(22, 17, 16, 0.94);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    min-height: 90px;
+}
+
+.answer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.answer-card h3 {
+    margin: 0;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.answer-card p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-size: 12px;
+}
+
+.confidence-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    background: rgba(201, 168, 106, 0.2);
+    color: var(--accent);
+}
+
+.confidence-pill[data-confidence="Supported by wiki"] {
+    background: rgba(107, 191, 138, 0.2);
+    color: var(--accent-cool);
+}
+
+.confidence-pill[data-confidence="Not found in wiki -- I don't know"] {
+    background: rgba(224, 102, 88, 0.2);
+    color: var(--danger);
+}
+
+.source-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.source-list li {
+    background: rgba(14, 11, 10, 0.85);
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.source-title {
+    font-size: 12px;
+}
+
+.source-section {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.source-link {
+    font-size: 10px;
+    color: var(--accent-cool);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.no-drag,
+.ask-form input,
+.ask-form button,
+.source-link {
+    -webkit-app-region: no-drag;
+}
+
+@media (max-width: 560px) {
+    .ask-form {
+        grid-template-columns: 1fr;
+    }
+}

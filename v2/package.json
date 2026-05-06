@@ -4,16 +4,42 @@
   "main": "./electron/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^39.2.7"
+    "electron": "^39.2.7",
+    "electron-builder": "^24.13.3"
   },
   "dependencies": {
     "axios": "^1.13.2"
+  },
+  "build": {
+    "appId": "com.terraria.lorekeeper",
+    "productName": "Terraria Lorekeeper",
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "backend/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/dist/terraria_assistant",
+        "to": "backend",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "${productName}-Setup.${ext}"
+    }
   }
 }
