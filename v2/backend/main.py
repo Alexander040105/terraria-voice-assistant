@@ -31,6 +31,9 @@ TTS_ENABLED = os.getenv("TERRARIA_TTS_ENABLED", "true").lower() == "true"
 EAGER_INIT = os.getenv("TERRARIA_EAGER_INIT", "true").lower() == "true"
 PORT_FILE = os.path.join(os.path.dirname(__file__), "runtime_port.txt")
 
+with open(PORT_FILE, "w", encoding="utf-8") as handle:
+    handle.write(str(APP_PORT))
+
 ANSWER_TEMPLATE = """You are a Terraria wiki assistant.
 Only answer using the provided wiki context. If the context does not support the answer, say you don't know.
 

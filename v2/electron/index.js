@@ -30,6 +30,21 @@ function getBackendBaseUrl() {
     return `http://127.0.0.1:${getBackendPort()}`;
 }
 
+function getBackendBaseUrlWithFallback() {
+    const primary = getBackendBaseUrl();
+    try {
+        if (fs.existsSync(backendPortFile)) {
+            const value = fs.readFileSync(backendPortFile, "utf-8").trim();
+            if (value && !primary.endsWith(`:${value}`)) {
+                return [primary, `http://127.0.0.1:${value}`];
+            }
+        }
+    } catch (error) {
+        console.warn("Failed to read backend port file:", error);
+    }
+    return [primary];
+}
+
 let backendProcess = null;
 let mainWindow = null;
 const pushToTalkShortcut = process.env.TERRARIA_PTT_HOTKEY || "CommandOrControl+Shift+Space";
@@ -163,7 +178,6 @@ app.whenReady().then(async () => {
 });
 
 ipcMain.handle("api:request", async (_event, route, payload, method = "GET") => {
-    const url = `${getBackendBaseUrl()}${route}`;
     const options = {
         method,
         headers: { "Content-Type": "application/json" },
@@ -176,20 +190,24 @@ ipcMain.handle("api:request", async (_event, route, payload, method = "GET") => 
     const timeoutMs = route === "/ask" || route === "/listen" ? 60000 : 5000;
     let lastError = null;
     for (let attempt = 0; attempt < 3; attempt += 1) {
-        try {
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), timeoutMs);
-            const res = await fetch(url, { ...options, signal: controller.signal });
-            clearTimeout(timeout);
-            if (!res.ok) {
-                const text = await res.text();
-                throw new Error(`Backend ${res.status}: ${text}`);
+        const baseUrls = getBackendBaseUrlWithFallback();
+        for (const baseUrl of baseUrls) {
+            const url = `${baseUrl}${route}`;
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), timeoutMs);
+                const res = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(timeout);
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`Backend ${res.status}: ${text}`);
+                }
+                return res.json();
+            } catch (error) {
+                lastError = error;
             }
-            return res.json();
-        } catch (error) {
-            lastError = error;
-            await new Promise((resolve) => setTimeout(resolve, 300));
         }
+        await new Promise((resolve) => setTimeout(resolve, 300));
     }
 
     throw lastError;
