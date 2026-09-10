@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+.env
+
+# Models & data
+backend/models/*
+!backend/models/.gitkeep
+backend/data/*
+!backend/data/.gitkeep
+
+# Node
+frontend/node_modules/
+frontend/dist/
+electron/dist/
+node_modules/
+dist/
+build/
+
+# Build artifacts
+*.exe
+*.zip
+*.msi
+/*.spec
+build_scripts/dist/
+build_scripts/build/
+
+# Logs
+*.log

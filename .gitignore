@@ -1,0 +1,18 @@
+.venv
+node_modules
+.windsurf
+.devin
+
+# v3 build/runtime artifacts
+v3/.venv
+v3/frontend/node_modules
+v3/frontend/dist
+v3/electron/dist
+v3/dist
+v3/build
+v3/backend/models
+v3/backend/data
+v3/build_scripts/dist
+v3/*.exe
+v3/*.zip
+v3/*.msi

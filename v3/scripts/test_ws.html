@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v3 WS Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    #transcript, #answer { white-space: pre-wrap; border: 1px solid #ccc; padding: 10px; min-height: 2em; }
+    button { padding: 8px 16px; margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <h2>Terraria Voice Assistant — WebSocket Test</h2>
+  <p>Status: <strong id="status">idle</strong></p>
+  <button id="start">Start mic</button>
+  <button id="stop" disabled>Stop</button>
+  <h3>Transcript</h3>
+  <div id="transcript"></div>
+  <h3>Answer</h3>
+  <div id="answer"></div>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8000/ws/voice');
+    ws.binaryType = 'arraybuffer';
+
+    let audioCtx, workletNode, mic;
+
+    const statusEl = document.getElementById('status');
+    const transcriptEl = document.getElementById('transcript');
+    const answerEl = document.getElementById('answer');
+    const startBtn = document.getElementById('start');
+    const stopBtn = document.getElementById('stop');
+
+    ws.onopen = () => { statusEl.textContent = 'connected'; };
+    ws.onclose = () => { statusEl.textContent = 'disconnected'; };
+    ws.onerror = () => { statusEl.textContent = 'error'; };
+
+    ws.onmessage = (event) => {
+      if (typeof event.data === 'string') {
+        const msg = JSON.parse(event.data);
+        if (msg.transcript !== null && msg.transcript !== undefined) {
+          transcriptEl.textContent = msg.transcript;
+        }
+        if (msg.answer !== null && msg.answer !== undefined) {
+          answerEl.textContent = msg.answer;
+        }
+      } else {
+        const ctx = new AudioContext();
+        ctx.decodeAudioData(event.data, (audio) => {
+          const source = ctx.createBufferSource();
+          source.buffer = audio;
+          source.connect(ctx.destination);
+          source.start();
+        });
+      }
+    };
+
+    startBtn.onclick = async () => {
+      audioCtx = new AudioContext({ sampleRate: 16000 });
+      await audioCtx.audioWorklet.addModule('/audio-processor.js');
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mic = audioCtx.createMediaStreamSource(stream);
+      workletNode = new AudioWorkletNode(audioCtx, 'pcm-processor');
+      workletNode.port.onmessage = (e) => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(e.data);
+        }
+      };
+      mic.connect(workletNode);
+      statusEl.textContent = 'listening';
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    };
+
+    stopBtn.onclick = () => {
+      audioCtx?.close();
+      ws.close();
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      statusEl.textContent = 'stopped';
+    };
+  </script>
+</body>
+</html>

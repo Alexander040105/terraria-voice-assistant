@@ -1,0 +1,40 @@
+{
+  "name": "terraria-voice-assistant-v3",
+  "version": "1.0.0",
+  "description": "Offline Terraria voice assistant (v3)",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev:backend": ".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --reload --port 8000",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd build_scripts && ..\\.venv\\Scripts\\python.exe -m PyInstaller build_backend.spec",
+    "build": "npm run build:frontend && npm run build:backend",
+    "dist": "npm run build && electron-builder",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.terraria.voiceassistant",
+    "productName": "Terraria Voice Assistant",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*",
+      "!frontend/dist/**/*.map"
+    ],
+    "extraResources": [
+      {
+        "from": "build_scripts/dist/assistant-backend",
+        "to": "assistant-backend"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  }
+}

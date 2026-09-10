@@ -1,0 +1,27 @@
+# Web framework
+fastapi
+uvicorn[standard]
+
+# LLM / embeddings
+llama-cpp-python
+
+# STT
+faster-whisper
+
+# VAD
+onnxruntime
+
+# Vector store
+sqlite-vec
+
+# Utilities
+numpy
+psutil
+sounddevice
+soundfile
+requests
+tqdm
+huggingface-hub
+
+# TTS
+piper-tts
